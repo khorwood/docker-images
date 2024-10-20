@@ -1,0 +1,22 @@
+name: sabnzbd
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'sabnzbd/Dockerfile'
+jobs:
+  build:
+    runs-on: [ubuntu-latest]
+    permissions:
+      packages: write
+    steps:
+      - name: uses actions/checkout
+        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 #v4.2.1
+      - name: docker login
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: docker build
+        run: docker build -t ghcr.io/khorwood/${{ github.workflow }} .
+        working-directory: ${{ github.workflow }}
+      - name: docker push
+        run: docker push ghcr.io/khorwood/${{ github.workflow }}:latest
+        working-directory: ${{ github.workflow }}
