@@ -16,6 +16,6 @@ RUN set -x \
 
 VOLUME ["/config"]
 
-EXPOSE 6697
+EXPOSE 6667
 
 CMD ["soju", "-config", "/config/config"]
