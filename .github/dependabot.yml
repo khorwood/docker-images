@@ -5,7 +5,12 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: docker
-    directory: "/"
+    directories:
+      - "certbot"
+      - "radarr"
+      - "sabnzbd"
+      - "soju"
+      - "sonarr"
     schedule:
       interval: "daily"
   - package-ecosystem: pip
