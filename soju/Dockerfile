@@ -10,6 +10,8 @@ RUN set -x \
     apk add --no-cache --virtual=run-deps \
         soju \
     && \
+    adduser -D -H -s /sbin/nologin app \
+    && \
     rm -rf /tmp/* \
            /var/cache/apk/* \
            /var/tmp/*
@@ -17,5 +19,7 @@ RUN set -x \
 VOLUME ["/config"]
 
 EXPOSE 6667
+
+USER app
 
 CMD ["soju", "-config", "/config/config"]

@@ -18,6 +18,8 @@ RUN set -x \
     && \
     tar xzf /tmp/radarr.tar.gz -C /app --strip-components=1 \
     && \
+    adduser -D -H -s /sbin/nologin app \
+    && \
     rm -rf \
         /app/Radarr.Update \
         /tmp/* \
@@ -27,5 +29,7 @@ RUN set -x \
 EXPOSE 7878
 
 VOLUME ["/config"]
+
+USER app
 
 CMD ["/app/Radarr", "-nobrowser", "-data=/config"]
