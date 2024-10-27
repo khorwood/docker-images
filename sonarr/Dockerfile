@@ -18,6 +18,8 @@ RUN set -x \
     && \
     tar xzf /tmp/sonarr.tar.gz -C /app --strip-components=1 \
     && \
+    adduser -D -H -s /sbin/nologin app \
+    && \
     rm -rf \
         /app/Sonarr.Update \
         /tmp/* \
@@ -27,5 +29,7 @@ RUN set -x \
 EXPOSE 8989
 
 VOLUME ["/config"]
+
+USER app
 
 CMD ["/app/Sonarr", "-nobrowser", "-data=/config"]

@@ -25,6 +25,8 @@ RUN set -x \
     && \
     python3 -m pip install --no-cache-dir --break-system-packages -r /app/requirements.txt \
     && \
+    adduser -D -H -s /sbin/nologin app \
+    && \
     rm -rf \
         /tmp/* \
         /var/cache/apk/* \
@@ -35,5 +37,7 @@ COPY --from=unrar /usr/bin/unrar-alpine /usr/bin/unrar
 EXPOSE 8080
 
 VOLUME ["/config"]
+
+USER app
 
 CMD ["python3", "/app/SABnzbd.py", "-f", "/config/sabnzbd.ini"]
