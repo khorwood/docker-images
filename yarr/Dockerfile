@@ -11,7 +11,7 @@ RUN set -x \
     && \
     mkdir -p /app \
     && \
-    unzip -d /app /tmp/yar.zip \
+    unzip -d /app /tmp/yarr.zip \
     && \
     adduser -D -H -s /sbin/nologin app \
     && \
