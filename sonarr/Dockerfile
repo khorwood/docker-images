@@ -12,6 +12,8 @@ RUN set -x \
         sqlite-libs \
         xmlstarlet \
     && \
+    apk upgrade --no-cache \
+    && \
     wget -q -O /tmp/sonarr.tar.gz "https://services.sonarr.tv/v1/download/main/latest?version=4&os=linuxmusl&arch=x64" \
     && \
     mkdir -p /app \

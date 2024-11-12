@@ -12,6 +12,8 @@ RUN set -x \
         sqlite-libs \
         xmlstarlet \
     && \
+    apk upgrade --no-cache \
+    && \
     wget -q -O /tmp/radarr.tar.gz "https://radarr.servarr.com/v1/update/master/updatefile?os=linuxmusl&runtime=netcore&arch=x64" \
     && \
     mkdir -p /app \

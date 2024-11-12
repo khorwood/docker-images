@@ -14,6 +14,8 @@ RUN set -x \
         python3 \
         py3-pip \
     && \
+    apk upgrade --no-cache \
+    && \
     python3 -m pip install --require-hashes --only-binary :all: --no-cache-dir --break-system-packages -r /tmp/requirements.txt \
     && \
     rm -rf /tmp/* \

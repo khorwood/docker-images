@@ -10,6 +10,8 @@ RUN set -x \
     apk add --no-cache --virtual=run-deps \
         soju \
     && \
+    apk upgrade --no-cache \
+    && \
     adduser -D -H -s /sbin/nologin app \
     && \
     rm -rf /tmp/* \

@@ -17,6 +17,8 @@ RUN set -x \
         python3 \
         py3-pip \
     && \
+    apk upgrade --no-cache \
+    && \
     wget -q -O /tmp/sabnzbd.tar.gz "https://github.com/sabnzbd/sabnzbd/releases/download/4.3.3/SABnzbd-4.3.3-src.tar.gz" \
     && \
     mkdir -p /app \
