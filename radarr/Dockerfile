@@ -1,4 +1,4 @@
-FROM alpine:3@sha256:beefdbd8a1da6d2915566fde36db9db0b524eb737fc57cd1367effd16dc0d06d
+FROM ghcr.io/khorwood/alpine@sha256:cc50ca31a798fcfe1b0a9a181195984d49eecb2388345d5180e7280464f05c36
 
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
