@@ -13,7 +13,15 @@ updates:
       - "sonarr"
     schedule:
       interval: "daily"
+    groups:
+      docker:
+        patterns:
+          - "*"
   - package-ecosystem: pip
     directory: "/"
     schedule:
       interval: "daily"
+    groups:
+      python:
+        patterns:
+          - "*"
