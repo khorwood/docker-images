@@ -1,0 +1,40 @@
+name: pull-request
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  changed:
+    runs-on: [ubuntu-latest]
+    outputs:
+      matrix: ${{ steps.changes.outputs.matrix }}
+    steps:
+      - name: uses hellofresh/action-changed-files
+        uses: hellofresh/action-changed-files@f6db62a551af02bb4bbc88ce6536bf40aa537e8f #v3.0.1
+        id: changes
+        with:
+          pattern: (?P<container>(?!\.github)[^/]+)
+  build:
+    runs-on: [ubuntu-latest]
+    needs: changed
+    strategy:
+      matrix: ${{ fromJson(needs.changed.outputs.matrix) }}
+    if: ${{ fromJson(needs.changed.outputs.matrix).include[0] }}
+    steps:
+      - name: uses actions/checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      - name: download alpine minirootfs
+        if: ${{ matrix.container == 'alpine' }}
+        run: |
+          curl -sSO https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-minirootfs-3.20.3-x86_64.tar.gz
+          curl -sSO https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-minirootfs-3.20.3-x86_64.tar.gz.sha256
+          sha256sum -c alpine-minirootfs-3.20.3-x86_64.tar.gz.sha256
+        working-directory: ${{ matrix.container }}
+      - name: docker login
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: docker build
+        run: docker build -t ghcr.io/khorwood/${{ matrix.container }} .
+        working-directory: ${{ matrix.container }}
+      - name: docker push
+        run: docker push ghcr.io/khorwood/${{ matrix.container }}:latest
+        working-directory: ${{ matrix.container }}
