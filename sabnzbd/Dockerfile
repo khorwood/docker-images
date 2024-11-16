@@ -43,3 +43,4 @@ VOLUME ["/config"]
 USER app
 
 CMD ["python3", "/app/SABnzbd.py", "-f", "/config/sabnzbd.ini"]
+
