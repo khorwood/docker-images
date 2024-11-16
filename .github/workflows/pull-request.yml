@@ -7,11 +7,6 @@ on:
       - "**/requirements.txt"
       - "**/*.sh"
 jobs:
-  changed:
-    runs-on: [ubuntu-latest]
-    steps:
-      - name: uses tj-actions/changed-files
-        uses: tj-actions/changed-files@
   test:
     runs-on: [ubuntu-latest]
     strategy:
