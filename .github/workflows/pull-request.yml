@@ -18,7 +18,7 @@ jobs:
         with:
           dir_names: "true"
     outputs:
-      matrix: ${{ steps.changed.outputs.all_changed_files }}
+      matrix: ${{ steps.changed.outputs.changed_keys }}
   test:
     runs-on: [ubuntu-latest]
     needs: changes
