@@ -2,19 +2,32 @@ name: pull-request
 on:
   pull_request:
     branches: [main]
+    paths:
+      - "**/Dockerfile"
+      - "**/requirements.txt"
+      - "**/*.sh"
 jobs:
+  changed:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: uses tj-actions/changed-files
+        uses: tj-actions/changed-files@
   test:
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        container: [certbot, radarr, sabnzbd, soju, sonarr]
+        container: [alpine, certbot, radarr, sabnzbd, soju, sonarr]
     steps:
       - name: uses actions/checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      - name: check for changes
+        run: echo "stdout=$(git diff --name-only -- ${{ matrix.container }})" >> $GITHUB_OUTPUT
+        id: changes
       - name: uses hadolint/hadolint-action
         uses: hadolint/hadolint-action@54c9adbab1582c2ef04b2016b760714a4bfde3cf #v3.1.0
         with:
           dockerfile: ${{ matrix.container }}/Dockerfile
       - name: docker build
+        if: ${{ steps.changes.outputs.stdout != '' }}
         run: docker build .
         working-directory: ${{ matrix.container }}
