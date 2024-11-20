@@ -14,7 +14,7 @@ RUN set -x \
     && \
     apk upgrade --no-cache \
     && \
-    wget -q -O /tmp/radarr.tar.gz "https://radarr.servarr.com/v1/update/master/updatefile?os=linuxmusl&runtime=netcore&arch=x64" \
+    wget -q -O /tmp/radarr.tar.gz "https://github.com/Radarr/Radarr/releases/download/v5.15.1.9463/Radarr.master.5.15.1.9463.linux-musl-core-x64.tar.gz" \
     && \
     mkdir -p /app \
     && \
