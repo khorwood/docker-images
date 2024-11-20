@@ -32,7 +32,7 @@ jobs:
         run: docker push ghcr.io/khorwood/${{ github.event.inputs.container }}:latest
         working-directory: ${{ github.event.inputs.container }}
       - name: uses aquasecurity/trivy-action
-        uses: aquasecurity/trivy-action@915b19bbe73b92a6cf82a1bc12b087c9a19a5fe2 #0.28.0
+        uses: aquasecurity/trivy-action@18f2510ee396bbf400402947b394f2dd8c87dbb0 #0.29.0
         env:
           TRIVY_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-db:2"
           TRIVY_JAVA_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-java-db:1"
