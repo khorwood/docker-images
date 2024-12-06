@@ -1,1 +1,2 @@
 certbot-dns-desec==1.2.1 --hash=sha256:cf844dfa3b66086125ad177a117d5e575018226e4e62d1d7b6a3d5840081518d
+cryptography==42.0.3 --hash=sha256:d5cf11bc7f0b71fb71af26af396c83dfd3f6eed56d4b6ef95d57867bf1e4ba65
