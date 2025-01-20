@@ -1,6 +1,6 @@
 FROM ghcr.io/linuxserver/unrar:amd64-latest@sha256:d778097b13aa9dd035c0aa73dada05559802c9ba6e7fb080e462bb5e0bea17d9 AS unrar
 
-FROM ghcr.io/khorwood/alpine@sha256:a1f048361ae7559d31458d97d82099837ba2517497271eef8fac5e229c4f2578
+FROM ghcr.io/khorwood/alpine@sha256:544ca6693e28b05b019c030f8e7639aa88520f208cb973b9bc132204cff3e6be
 
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
