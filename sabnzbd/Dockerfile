@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/unrar:amd64-latest@sha256:d778097b13aa9dd035c0aa73dada05559802c9ba6e7fb080e462bb5e0bea17d9 AS unrar
+FROM ghcr.io/linuxserver/unrar:amd64-latest@sha256:7ef66436e7a5021a81efea9e48b1db7a6e0ae41736accf7b6c4fc851a39cf704 AS unrar
 
 FROM ghcr.io/khorwood/alpine@sha256:544ca6693e28b05b019c030f8e7639aa88520f208cb973b9bc132204cff3e6be
 
