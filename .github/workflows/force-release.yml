@@ -9,7 +9,6 @@ on:
           - certbot
           - radarr
           - sabnzbd
-          - soju
           - sonarr
 jobs:
   build:
