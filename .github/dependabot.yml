@@ -13,7 +13,6 @@ updates:
       - "certbot"
       - "radarr"
       - "sabnzbd"
-      - "soju"
       - "sonarr"
     schedule:
       interval: "daily"
