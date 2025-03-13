@@ -17,6 +17,8 @@ RUN set -x \
            /var/cache/apk/* \
            /var/tmp/*
 
-EXPOSE 22 53 389 88 135 139 138 445 464 3268 3269
+EXPOSE 22 53 88 135 139 138 389 445 464 3268 3269
+
+VOLUME ["/var/lib/samba"]
 
 CMD ["/entrypoint.sh"]
