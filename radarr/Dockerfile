@@ -14,7 +14,7 @@ RUN set -x \
     && \
     apk upgrade --no-cache \
     && \
-    wget -q -O /tmp/radarr.tar.gz "https://github.com/Radarr/Radarr/releases/download/v5.19.3.9730/Radarr.master.5.19.3.9730.linux-musl-core-x64.tar.gz" \
+    wget -q -O /tmp/radarr.tar.gz "https://github.com/Radarr/Radarr/releases/download/v5.20.2.9777/Radarr.master.5.20.2.9777.linux-musl-core-x64.tar.gz" \
     && \
     mkdir -p /app \
     && \
