@@ -14,7 +14,7 @@ RUN set -x \
     && \
     apk upgrade --no-cache \
     && \
-    wget -q -O /tmp/sonarr.tar.gz "https://github.com/Sonarr/Sonarr/releases/download/v4.0.13.2932/Sonarr.main.4.0.13.2932.linux-musl-x64.tar.gz" \
+    wget -q -O /tmp/sonarr.tar.gz "https://github.com/Sonarr/Sonarr/releases/download/v4.0.14.2939/Sonarr.main.4.0.14.2939.linux-musl-x64.tar.gz" \
     && \
     mkdir -p /app \
     && \
