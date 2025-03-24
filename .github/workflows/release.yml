@@ -9,8 +9,7 @@ jobs:
     outputs:
       matrix: ${{ steps.changes.outputs.matrix }}
     steps:
-      - name: uses hellofresh/action-changed-files
-        uses: hellofresh/action-changed-files@f6db62a551af02bb4bbc88ce6536bf40aa537e8f #v3.0.1
+      - uses: khorwood/third-party-actions@hellofresh/action-changed-files/v3
         id: changes
         with:
           pattern: (?P<container>(?!\.github)[^/]+)
@@ -25,8 +24,7 @@ jobs:
       matrix: ${{ fromJson(needs.changed.outputs.matrix) }}
     if: ${{ fromJson(needs.changed.outputs.matrix).include[0] }}
     steps:
-      - name: uses actions/checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      - uses: khorwood/third-party-actions@actions/checkout/v4
       - name: download alpine minirootfs
         if: ${{ matrix.container == 'alpine' }}
         run: ./fetch-minirootfs.sh
@@ -39,8 +37,7 @@ jobs:
       - name: docker push
         run: docker push ghcr.io/khorwood/${{ matrix.container }}:latest
         working-directory: ${{ matrix.container }}
-      - name: uses aquasecurity/trivy-action
-        uses: aquasecurity/trivy-action@6c175e9c4083a92bbca2f9724c8a5e33bc2d97a5 #0.30.0
+      - uses: khorwood/third-party-actions@aquasecurity/trivy-action/v0
         env:
           TRIVY_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-db:2"
           TRIVY_JAVA_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-java-db:1"
@@ -48,7 +45,6 @@ jobs:
           image-ref: 'ghcr.io/khorwood/${{ matrix.container }}:latest'
           format: 'sarif'
           output: 'trivy-results.sarif'
-      - name: uses github/codeql-action/upload-sarif
-        uses: github/codeql-action/upload-sarif@6bb031afdd8eb862ea3fc1848194185e076637e5 #v3.28.11
+      - uses: khorwood/third-party-actions/upload-sarif@github/codeql-action/v3
         with:
           sarif_file: 'trivy-results.sarif'
