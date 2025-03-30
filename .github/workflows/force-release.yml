@@ -6,7 +6,6 @@ on:
         type: choice
         options:
           - alpine
-          - certbot
           - radarr
           - sabnzbd
           - sonarr
