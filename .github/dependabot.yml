@@ -11,11 +11,3 @@ updates:
       docker:
         patterns:
           - "*"
-  - package-ecosystem: pip
-    directory: "/"
-    schedule:
-      interval: "daily"
-    groups:
-      python:
-        patterns:
-          - "*"
