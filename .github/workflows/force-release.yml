@@ -6,6 +6,7 @@ on:
         type: choice
         options:
           - alpine
+          - prometheus
           - radarr
           - sabnzbd
           - sonarr
