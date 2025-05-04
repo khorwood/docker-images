@@ -10,6 +10,8 @@ on:
           - radarr
           - sabnzbd
           - sonarr
+permissions:
+  contents: read
 jobs:
   build:
     runs-on: [ubuntu-latest]
