@@ -5,23 +5,15 @@ ENV LANG='en_US.UTF-8' \
     TERM='xterm'
 
 # hadolint ignore=DL3018
-RUN set -x \
-    && \
-    apk add --no-cache --virtual=run-deps \
+RUN apk add --no-cache --virtual=run-deps \
         icu-libs \
         sqlite-libs \
-        xmlstarlet \
-    && \
-    apk upgrade --no-cache \
-    && \
-    wget -q -O /tmp/sonarr.tar.gz "https://github.com/Sonarr/Sonarr/releases/download/v4.0.14.2939/Sonarr.main.4.0.14.2939.linux-musl-x64.tar.gz" \
-    && \
-    mkdir -p /app \
-    && \
-    tar xzf /tmp/sonarr.tar.gz -C /app --strip-components=1 \
-    && \
-    adduser -D -H -s /sbin/nologin app \
-    && \
+        xmlstarlet && \
+    apk upgrade --no-cache && \
+    wget -q -O /tmp/sonarr.tar.gz "https://github.com/Sonarr/Sonarr/releases/download/v4.0.14.2939/Sonarr.main.4.0.14.2939.linux-musl-x64.tar.gz" && \
+    mkdir -p /app && \
+    tar xzf /tmp/sonarr.tar.gz -C /app --strip-components=1 && \
+    adduser -D -H -s /sbin/nologin app && \
     rm -rf \
         /app/Sonarr.Update \
         /tmp/* \
