@@ -4,15 +4,10 @@ ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
     TERM='xterm'
 
-RUN set -x \
-    && \
-    apk add --no-cache --virtual=run-deps \
-        prometheus \
-    && \
-    apk upgrade --no-cache \
-    && \
-    adduser -D -H -s /sbin/nologin app \
-    && \
+RUN apk add --no-cache --virtual=run-deps \
+        prometheus && \
+    apk upgrade --no-cache && \
+    adduser -D -H -s /sbin/nologin app && \
     rm -rf \
         /tmp/* \
         /var/cache/apk/* \
