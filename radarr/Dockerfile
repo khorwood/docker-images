@@ -10,7 +10,7 @@ RUN apk add --no-cache --virtual=run-deps \
         sqlite-libs \
         xmlstarlet && \
     apk upgrade --no-cache && \
-    wget -q -O /tmp/radarr.tar.gz "https://github.com/Radarr/Radarr/releases/download/v5.25.0.10024/Radarr.master.5.25.0.10024.linux-musl-core-x64.tar.gz" && \
+    wget -q -O /tmp/radarr.tar.gz "https://github.com/Radarr/Radarr/releases/download/v5.26.2.10099/Radarr.master.5.26.2.10099.linux-musl-core-x64.tar.gz" && \
     mkdir -p /app && \
     tar xzf /tmp/radarr.tar.gz -C /app --strip-components=1 && \
     adduser -D -H -s /sbin/nologin app && \
