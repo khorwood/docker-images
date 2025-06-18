@@ -12,6 +12,7 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposi
         7zip \
         par2cmdline-turbo \
         python3 \
+        py3-cheetah \
         py3-pip && \
     apk upgrade --no-cache && \
     wget -q -O /tmp/sabnzbd.tar.gz "https://github.com/sabnzbd/sabnzbd/releases/download/4.5.1/SABnzbd-4.5.1-src.tar.gz" && \
