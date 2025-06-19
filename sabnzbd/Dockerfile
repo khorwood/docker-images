@@ -12,13 +12,14 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposi
         7zip \
         par2cmdline-turbo \
         python3 \
-        py3-cheetah \
         py3-pip && \
+    apk add --no-cache gcc && \
     apk upgrade --no-cache && \
     wget -q -O /tmp/sabnzbd.tar.gz "https://github.com/sabnzbd/sabnzbd/releases/download/4.5.1/SABnzbd-4.5.1-src.tar.gz" && \
     mkdir -p /app && \
     tar xzf /tmp/sabnzbd.tar.gz -C /app --strip-components=1 && \
     python3 -m pip install --no-cache-dir --root-user-action=ignore --break-system-packages -r /app/requirements.txt && \
+    apk del gcc && \
     adduser -D -H -s /sbin/nologin app && \
     rm -rf \
         /tmp/* \
