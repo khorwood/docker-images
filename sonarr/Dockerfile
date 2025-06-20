@@ -10,7 +10,7 @@ RUN apk add --no-cache --virtual=run-deps \
         sqlite-libs \
         xmlstarlet && \
     apk upgrade --no-cache && \
-    wget -q -O /tmp/sonarr.tar.gz "https://github.com/Sonarr/Sonarr/releases/download/v4.0.14.2939/Sonarr.main.4.0.14.2939.linux-musl-x64.tar.gz" && \
+    wget -q -O /tmp/sonarr.tar.gz "https://github.com/Sonarr/Sonarr/releases/download/v4.0.15.2941/Sonarr.main.4.0.15.2941.linux-musl-x64.tar.gz" && \
     mkdir -p /app && \
     tar xzf /tmp/sonarr.tar.gz -C /app --strip-components=1 && \
     adduser -D -H -s /sbin/nologin app && \
