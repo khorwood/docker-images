@@ -3,16 +3,16 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - ".github/workflows/radarr/**"
+      - ".github/workflows/radarr.yml"
       - "radarr/**"
   push:
     branches: [main]
     paths:
-      - ".github/workflows/radarr/**"
+      - ".github/workflows/radarr.yml"
       - "radarr/**"
+  workflow_dispatch:
 env:
   RELEASE: "5.26.2.10099"
-  TAG: "alpine3.22.0"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,14 +24,14 @@ jobs:
       - run: |
             docker buildx build \
                 --build-arg RELEASE=${{ env.RELEASE }} \
-                -t ghcr.io/khorwood/radarr:${{ env.RELEASE }}-${{ env.TAG }} .
+                -t ghcr.io/khorwood/radarr:${{ env.RELEASE }}-${{ github.run_number }} .
         working-directory: radarr
       - uses: aquasecurity/trivy-action@0.32.0
         env:
           TRIVY_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-db:2"
           TRIVY_JAVA_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-java-db:1"
         with:
-          image-ref: 'ghcr.io/khorwood/radarr:${{ env.RELEASE }}-${{ env.TAG }}'
+          image-ref: 'ghcr.io/khorwood/radarr:${{ env.RELEASE }}-${{ github.run_number }}'
           format: 'sarif'
           output: 'trivy-results.sarif'
       - name: docker login
@@ -39,5 +39,5 @@ jobs:
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: docker push
         if: github.ref == 'refs/heads/main'
-        run: docker push ghcr.io/khorwood/radarr:${{ env.RELEASE }}-${{ env.TAG }}
+        run: docker push ghcr.io/khorwood/radarr:${{ env.RELEASE }}-${{ github.run_number }}
         working-directory: radarr
