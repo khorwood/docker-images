@@ -1,4 +1,4 @@
-FROM ghcr.io/khorwood/alpine:3.22.0.15.15
+FROM ghcr.io/khorwood/alpine:3.22.0.15
 
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
