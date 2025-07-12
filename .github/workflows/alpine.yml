@@ -27,7 +27,7 @@ jobs:
                 --build-arg RELEASE=${{ env.RELEASE }} \
                 -t ghcr.io/khorwood/alpine:${{ env.RELEASE }} .
         working-directory: alpine
-      - uses: aquasecurity/trivy-action@v0.32.0
+      - uses: aquasecurity/trivy-action@0.32.0
         env:
           TRIVY_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-db:2"
           TRIVY_JAVA_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-java-db:1"
