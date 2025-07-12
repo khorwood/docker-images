@@ -1,4 +1,6 @@
-FROM ghcr.io/khorwood/alpine@sha256:baa417040acf3004ccc2b2d587f52ec2a698f76af7fda99c97f0a21e60937205
+FROM ghcr.io/khorwood/alpine:3.22.0
+
+ARG RELEASE=5.26.2.10099
 
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
@@ -10,7 +12,7 @@ RUN apk add --no-cache --virtual=run-deps \
         sqlite-libs \
         xmlstarlet && \
     apk upgrade --no-cache && \
-    wget -q -O /tmp/radarr.tar.gz "https://github.com/Radarr/Radarr/releases/download/v5.26.2.10099/Radarr.master.5.26.2.10099.linux-musl-core-x64.tar.gz" && \
+    wget -q -O /tmp/radarr.tar.gz "https://github.com/Radarr/Radarr/releases/download/v${RELEASE}/Radarr.master.${RELEASE}.linux-musl-core-x64.tar.gz" && \
     mkdir -p /app && \
     tar xzf /tmp/radarr.tar.gz -C /app --strip-components=1 && \
     adduser -D -H -s /sbin/nologin app && \

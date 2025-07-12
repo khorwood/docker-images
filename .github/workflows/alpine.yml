@@ -1,0 +1,43 @@
+name: alpine
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/alpine/**"
+      - "alpine/**"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/alpine/**"
+      - "alpine/**"
+env:
+  VERSION: "v3.22"
+  RELEASE: "3.22.0"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+            ./fetch-minirootfs.sh ${{ env.VERSION }} ${{ env.RELEASE }}
+            docker buildx build \
+                -t ghcr.io/khorwood/alpine:${{ env.RELEASE }} .
+        working-directory: alpine
+      - uses: aquasecurity/trivy-action@0.32.0
+        env:
+          TRIVY_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-db:2"
+          TRIVY_JAVA_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-java-db:1"
+        with:
+          image-ref: 'ghcr.io/khorwood/alpine:${{ env.RELEASE }}'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      - name: docker login
+        if: github.ref == 'refs/heads/main'
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: docker push
+        if: github.ref == 'refs/heads/main'
+        run: docker push ghcr.io/khorwood/alpine:${{ env.RELEASE }}
+        working-directory: alpine
