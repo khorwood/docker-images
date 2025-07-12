@@ -25,14 +25,15 @@ jobs:
       - run: |
             ./fetch-minirootfs.sh ${{ env.VERSION }} ${{ env.RELEASE }}
             docker buildx build \
-                -t ghcr.io/khorwood/alpine:${{ env.RELEASE }}.${{ github.run_number }} .
+                -t ghcr.io/khorwood/alpine:${{ env.VERSION }} \
+                -t ghcr.io/khorwood/alpine:${{ env.RELEASE }} .
         working-directory: alpine
       - uses: aquasecurity/trivy-action@0.32.0
         env:
           TRIVY_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-db:2"
           TRIVY_JAVA_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-java-db:1"
         with:
-          image-ref: 'ghcr.io/khorwood/alpine:${{ env.RELEASE }}.${{ github.run_number }}'
+          image-ref: 'ghcr.io/khorwood/alpine:${{ env.RELEASE }}'
           format: 'sarif'
           output: 'trivy-results.sarif'
       - name: docker login
@@ -40,5 +41,5 @@ jobs:
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: docker push
         if: github.ref == 'refs/heads/main'
-        run: docker push ghcr.io/khorwood/alpine:${{ env.RELEASE }}.${{ github.run_number }}
+        run: docker push -a ghcr.io/khorwood/alpine
         working-directory: alpine
