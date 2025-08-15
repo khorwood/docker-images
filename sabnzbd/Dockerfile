@@ -10,6 +10,9 @@ ENV LANG='en_US.UTF-8' \
 
 # hadolint ignore=DL3018
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+    apk add --no-cache --virtual=build-deps \
+        build-base \
+        python3-dev && \
     apk add --no-cache --virtual=run-deps \
         7zip \
         par2cmdline-turbo \
@@ -21,6 +24,7 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposi
     tar xzf /tmp/sabnzbd.tar.gz -C /app --strip-components=1 && \
     python3 -m pip install --no-cache-dir --root-user-action=ignore --break-system-packages -r /app/requirements.txt && \
     adduser -D -H -s /sbin/nologin app && \
+    apk del build-deps && \
     rm -rf \
         /tmp/* \
         /var/cache/apk/* \
