@@ -1,0 +1,40 @@
+name: irssi
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/irssi.yml"
+      - "irssi/**"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/irssi.yml"
+      - "irssi/**"
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      security-events: write
+    steps:
+      - uses: actions/checkout@v5
+      - run: |
+            docker buildx build \
+                -t ghcr.io/khorwood/irssi:${{ github.run_number }} .
+        working-directory: irssi
+      - uses: aquasecurity/trivy-action@0.32.0
+        env:
+          TRIVY_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-db:2"
+          TRIVY_JAVA_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-java-db:1"
+        with:
+          image-ref: 'ghcr.io/khorwood/irssi:${{ github.run_number }}'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      - name: docker login
+        if: github.ref == 'refs/heads/main'
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: docker push
+        if: github.ref == 'refs/heads/main'
+        run: docker push ghcr.io/khorwood/irssi:${{ github.run_number }}
+        working-directory: irssi
