@@ -1,0 +1,19 @@
+FROM ghcr.io/khorwood/alpine:3.22.1
+
+ENV LANG='en_US.UTF-8' \
+    LANGUAGE='en_US.UTF-8' \
+    TERM='xterm'
+
+# hadolint ignore=DL3018
+RUN apk add --no-cache --virtual=run-deps \
+        irssi && \
+    apk upgrade --no-cache && \
+    adduser -D -H app && \
+    rm -rf \
+        /tmp/* \
+        /var/cache/apk/* \
+        /var/tmp/*
+
+USER app
+
+CMD ["/bin/sh", "-c", "trap : TERM INT; sleep infinity & wait"]
