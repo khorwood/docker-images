@@ -24,7 +24,9 @@ jobs:
       - run: |
             docker buildx build \
                 --build-arg RELEASE=${{ env.RELEASE }} \
-                -t ghcr.io/khorwood/sonarr:${{ env.RELEASE }}-${{ github.run_number }} .
+                -t ghcr.io/khorwood/sonarr:${{ env.RELEASE }}-${{ github.run_number }}
+                -t ghcr.io/khorwood/sonarr:${{ env.RELEASE }}
+                .
         working-directory: sonarr
       - uses: aquasecurity/trivy-action@0.32.0
         env:
@@ -39,5 +41,5 @@ jobs:
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: docker push
         if: github.ref == 'refs/heads/main'
-        run: docker push ghcr.io/khorwood/sonarr:${{ env.RELEASE }}-${{ github.run_number }}
+        run: docker push --all-tags ghcr.io/khorwood/sonarr
         working-directory: sonarr
