@@ -12,7 +12,7 @@ on:
       - "sabnzbd/**"
   workflow_dispatch:
 env:
-  RELEASE: "4.5.2"
+  RELEASE: "4.5.3"
 jobs:
   build:
     runs-on: ubuntu-latest
