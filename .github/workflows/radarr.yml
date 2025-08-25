@@ -24,8 +24,8 @@ jobs:
       - run: |
             docker buildx build \
                 --build-arg RELEASE=${{ env.RELEASE }} \
-                -t ghcr.io/khorwood/radarr:${{ env.RELEASE }}-${{ github.run_number }}
-                -g ghcr.io/khorwood/radarr:${{ env.RELEASE }}
+                -t ghcr.io/khorwood/radarr:${{ env.RELEASE }}-${{ github.run_number }} \
+                -t ghcr.io/khorwood/radarr:${{ env.RELEASE }} \
                 .
         working-directory: radarr
       - uses: aquasecurity/trivy-action@0.32.0

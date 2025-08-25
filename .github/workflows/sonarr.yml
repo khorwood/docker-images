@@ -24,8 +24,8 @@ jobs:
       - run: |
             docker buildx build \
                 --build-arg RELEASE=${{ env.RELEASE }} \
-                -t ghcr.io/khorwood/sonarr:${{ env.RELEASE }}-${{ github.run_number }}
-                -t ghcr.io/khorwood/sonarr:${{ env.RELEASE }}
+                -t ghcr.io/khorwood/sonarr:${{ env.RELEASE }}-${{ github.run_number }} \
+                -t ghcr.io/khorwood/sonarr:${{ env.RELEASE }} \
                 .
         working-directory: sonarr
       - uses: aquasecurity/trivy-action@0.32.0

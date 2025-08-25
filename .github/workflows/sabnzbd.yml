@@ -24,8 +24,8 @@ jobs:
       - run: |
             docker buildx build \
                 --build-arg RELEASE=${{ env.RELEASE }} \
-                -t ghcr.io/khorwood/sabnzbd:${{ env.RELEASE }}-${{ github.run_number }}
-                -t ghcr.io/khorwood/sabnzbd:${{ env.RELEASE }}
+                -t ghcr.io/khorwood/sabnzbd:${{ env.RELEASE }}-${{ github.run_number }} \
+                -t ghcr.io/khorwood/sabnzbd:${{ env.RELEASE }} \
                 .
         working-directory: sabnzbd
       - uses: aquasecurity/trivy-action@0.32.0
