@@ -2,7 +2,7 @@ FROM ghcr.io/linuxserver/unrar:amd64-latest@sha256:e38db4a0e6ecad17d57a57d036cf3
 
 FROM ghcr.io/khorwood/alpine:3.22.1
 
-ARG RELEASE=4.5.2
+ARG RELEASE=4.5.3
 
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
