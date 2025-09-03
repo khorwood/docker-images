@@ -12,7 +12,7 @@ on:
       - "radarr/**"
   workflow_dispatch:
 env:
-  RELEASE: "5.26.2.10099"
+  RELEASE: "5.27.5.10198"
 jobs:
   build:
     runs-on: ubuntu-latest
