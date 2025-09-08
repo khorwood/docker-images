@@ -28,7 +28,7 @@ jobs:
                 -t ghcr.io/khorwood/radarr:${{ env.RELEASE }} \
                 .
         working-directory: radarr
-      - uses: aquasecurity/trivy-action@0.33.0
+      - uses: aquasecurity/trivy-action@0.33.1
         env:
           TRIVY_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-db:2"
           TRIVY_JAVA_DB_REPOSITORY: "public.ecr.aws/aquasecurity/trivy-java-db:1"
