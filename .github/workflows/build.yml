@@ -1,0 +1,65 @@
+name: build
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  alpine:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      security-events: write
+    steps:
+      - uses: actions/checkout@v5
+      - run: |
+          ./fetch-minirootfs.sh ${{ env.VERSION }} ${{ env.RELEASE }}
+          docker buildx build \
+              -t ghcr.io/khorwood/alpine:${{ env.VERSION }} \
+              -t ghcr.io/khorwood/alpine:${{ env.RELEASE }} .
+        env:
+          VERSION: 3.22
+          RELEASE: 3.22.1
+        working-directory: alpine
+      - name: docker login
+        if: github.ref == 'refs/heads/main'
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: docker push
+        if: github.ref == 'refs/heads/main'
+        run: docker push -a ghcr.io/khorwood/alpine
+        working-directory: alpine
+  images:
+    runs-on: ubuntu-latest
+    needs: [alpine]
+    permissions:
+      packages: write
+      security-events: write
+    strategy:
+      matrix:
+        include:
+          - image: irssi
+          - image: prometheus
+          - image: radarr
+            release: "5.27.5.10198"
+          - image: sabnzbd
+            release: "4.5.3"
+          - image: sonarr
+            release: "4.0.15.2941"
+    steps:
+      - uses: actions/checkout@v5
+      - run: docker buildx build -t ghcr.io/khorwood/${{ matrix.image }}:${{ env.RELEASE }}-${{ github.run_number }} .
+        env:
+          RELEASE: ${{ matrix.release }}
+        if: ${{ matrix.release }} != ""
+        working-directory: ${{ matrix.image }}
+      - run: docker buildx build -t ghcr.io/khorwood/${{ matrix.image }}:${{ github.run_number }} .
+        if: ${{ matrix.release }} == ""
+        working-directory: ${{ matrix.image }}
+      - name: docker login
+        if: github.ref == 'refs/heads/main'
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: docker push
+        if: github.ref == 'refs/heads/main'
+        run: docker push --all-tags ghcr.io/khorwood/${{ matrix.image }}
+        working-directory: ${{ matrix.image }}
