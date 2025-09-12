@@ -48,7 +48,11 @@ jobs:
             release: 4.0.15.2941
     steps:
       - uses: actions/checkout@v5
-      - run: docker buildx build -t ghcr.io/khorwood/${{ matrix.image }}:${{ env.RELEASE }}-${{ github.run_number }} .
+      - run: |
+          docker buildx build --build-arg RELEASE=${{ env.RELEASE }} \
+            -t ghcr.io/khorwood/${{ matrix.image }}:${{ env.RELEASE }}-${{ github.run_number }} \
+            -t ghcr.io/khorwood/${{ matrix.image }}:${{ env.RELEASE }} \
+            .
         env:
           RELEASE: ${{ matrix.release }}
         if: ${{ matrix.release != '' }}
