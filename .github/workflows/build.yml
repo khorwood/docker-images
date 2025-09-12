@@ -51,10 +51,10 @@ jobs:
       - run: docker buildx build -t ghcr.io/khorwood/${{ matrix.image }}:${{ env.RELEASE }}-${{ github.run_number }} .
         env:
           RELEASE: ${{ matrix.release }}
-        if: ${{ matrix.release }} != ""
+        if: ${{ matrix.release }} != ''
         working-directory: ${{ matrix.image }}
       - run: docker buildx build -t ghcr.io/khorwood/${{ matrix.image }}:${{ github.run_number }} .
-        if: ${{ matrix.release }} == ""
+        if: ${{ matrix.release }} == ''
         working-directory: ${{ matrix.image }}
       - name: docker login
         if: github.ref == 'refs/heads/main'
