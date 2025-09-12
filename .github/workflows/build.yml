@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - run: |
-          ./fetch-minirootfs.sh ${{ env.VERSION }} ${{ env.RELEASE }}
+          ./fetch-minirootfs.sh v${{ env.VERSION }} ${{ env.RELEASE }}
           docker buildx build \
               -t ghcr.io/khorwood/alpine:${{ env.VERSION }} \
               -t ghcr.io/khorwood/alpine:${{ env.RELEASE }} .
