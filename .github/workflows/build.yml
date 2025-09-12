@@ -39,24 +39,22 @@ jobs:
       matrix:
         include:
           - image: irssi
-            release: ""
           - image: prometheus
-            release: ""
           - image: radarr
-            release: "5.27.5.10198"
+            release: 5.27.5.10198
           - image: sabnzbd
-            release: "4.5.3"
+            release: 4.5.3
           - image: sonarr
-            release: "4.0.15.2941"
+            release: 4.0.15.2941
     steps:
       - uses: actions/checkout@v5
       - run: docker buildx build -t ghcr.io/khorwood/${{ matrix.image }}:${{ env.RELEASE }}-${{ github.run_number }} .
         env:
           RELEASE: ${{ matrix.release }}
-        if: ${{ matrix.release }} != ''
+        if: ${{ matrix.release != '' }}
         working-directory: ${{ matrix.image }}
       - run: docker buildx build -t ghcr.io/khorwood/${{ matrix.image }}:${{ github.run_number }} .
-        if: ${{ matrix.release }} == ''
+        if: ${{ matrix.release == '' }}
         working-directory: ${{ matrix.image }}
       - name: docker login
         if: github.ref == 'refs/heads/main'
