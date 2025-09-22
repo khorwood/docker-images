@@ -1,12 +1,14 @@
 FROM ghcr.io/khorwood/alpine:3.22.1
 
+ARG RELEASE=1.4.5-r4
+
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
     TERM='xterm'
 
 # hadolint ignore=DL3018
 RUN apk add --no-cache --virtual=run-deps \
-        irssi && \
+        irssi=${RELEASE} && \
     apk upgrade --no-cache && \
     adduser -D -H app && \
     rm -rf \
