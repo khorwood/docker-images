@@ -7,7 +7,7 @@ ENV LANG='en_US.UTF-8' \
     TERM='xterm'
 
 RUN apk add --no-cache --virtual=run-deps \
-        prometheus=${RELEASE}} && \
+        prometheus=${RELEASE} && \
     apk upgrade --no-cache && \
     adduser -D -H -s /sbin/nologin app && \
     rm -rf \
