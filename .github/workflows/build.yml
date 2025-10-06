@@ -39,7 +39,7 @@ jobs:
           - image: prometheus
             release: 2.53.4-r4
           - image: radarr
-            release: 5.27.5.10198
+            release: 5.28.0.10274
           - image: sabnzbd
             release: 4.5.3
           - image: sonarr
