@@ -19,7 +19,7 @@ jobs:
               -t ghcr.io/khorwood/alpine:${{ env.RELEASE }} .
         env:
           VERSION: 3.22
-          RELEASE: 3.22.1
+          RELEASE: 3.22.2
         working-directory: alpine
       - name: docker login
         if: github.ref == 'refs/heads/main'
@@ -50,6 +50,7 @@ jobs:
           docker buildx build --build-arg RELEASE=${{ env.RELEASE }} \
             -t ghcr.io/khorwood/${{ matrix.image }}:${{ env.RELEASE }}-${{ github.run_number }} \
             -t ghcr.io/khorwood/${{ matrix.image }}:${{ env.RELEASE }} \
+            -t ghcr.io/khorwood/${{ matrix.image }}:latest \
             .
         env:
           RELEASE: ${{ matrix.release }}
