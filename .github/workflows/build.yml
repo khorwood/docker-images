@@ -37,7 +37,7 @@ jobs:
           - image: irssi
             release: 1.4.5-r4
           - image: prometheus
-            release: 2.53.4-r4
+            release: 2.53.4-r5
           - image: radarr
             release: 5.28.0.10274
           - image: sabnzbd
