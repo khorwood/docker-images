@@ -41,7 +41,7 @@ jobs:
           - image: radarr
             release: 5.28.0.10274
           - image: sabnzbd
-            release: 4.5.4
+            release: 4.5.5
           - image: sonarr
             release: 4.0.15.2941
     steps:
