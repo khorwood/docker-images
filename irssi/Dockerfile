@@ -1,4 +1,4 @@
-FROM ghcr.io/khorwood/alpine:3.22.2
+FROM ghcr.io/khorwood/alpine:3.23.0
 
 ARG RELEASE=1.4.5-r4
 
