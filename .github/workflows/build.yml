@@ -19,7 +19,7 @@ jobs:
               -t ghcr.io/khorwood/alpine:${{ env.RELEASE }} .
         env:
           VERSION: 3.23
-          RELEASE: 3.23.2
+          RELEASE: 3.23.3
         working-directory: alpine
       - name: docker login
         if: github.ref == 'refs/heads/main'
