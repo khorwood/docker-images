@@ -11,22 +11,22 @@ jobs:
   alpine:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - run: |
-          ./fetch-minirootfs.sh v${{ env.VERSION }} ${{ env.RELEASE }}
-          docker buildx build \
-              -t ghcr.io/khorwood/alpine:${{ env.VERSION }} \
-              -t ghcr.io/khorwood/alpine:${{ env.RELEASE }} .
+      - uses: actions/checkout@v6
+      - name: build
+        run: |
+          if ! docker manifest inspect ghcr.io/khorwood/alpine:$RELEASE; then
+            ./fetch-minirootfs.sh v$VERSION $RELEASE
+            docker buildx build \
+              -t ghcr.io/khorwood/alpine:$VERSION \
+              -t ghcr.io/khorwood/alpine:$RELEASE .
+            if [["$GITHUB_REF" == 'refs/heads/main']]; then
+              echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+              docker push -a ghcr.io/khorwood/alpine
+            fi
+          fi
         env:
           VERSION: 3.23
           RELEASE: 3.23.3
-        working-directory: alpine
-      - name: docker login
-        if: github.ref == 'refs/heads/main'
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-      - name: docker push
-        if: github.ref == 'refs/heads/main'
-        run: docker push -a ghcr.io/khorwood/alpine
         working-directory: alpine
   images:
     runs-on: ubuntu-latest
@@ -37,7 +37,7 @@ jobs:
           - image: irssi
             release: 1.4.5-r6
           - image: prometheus
-            release: 3.5.0-r4
+            release: 3.5.0-r5
           - image: radarr
             release: 6.0.4.10291
           - image: sabnzbd
@@ -47,9 +47,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - run: |
-          docker buildx build --build-arg RELEASE=${{ env.RELEASE }} \
-            -t ghcr.io/khorwood/${{ matrix.image }}:${{ env.RELEASE }}-${{ github.run_number }} \
-            -t ghcr.io/khorwood/${{ matrix.image }}:${{ env.RELEASE }} \
+          docker buildx build --build-arg RELEASE=$RELEASE \
+            -t ghcr.io/khorwood/${{ matrix.image }}:$(echo $RELEASE | cut -d "-" -f 1)-${{ github.run_number }} \
+            -t ghcr.io/khorwood/${{ matrix.image }}:$(echo $RELEASE | cut -d "-" -f 1) \
             -t ghcr.io/khorwood/${{ matrix.image }}:latest \
             .
         env:
