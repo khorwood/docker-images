@@ -48,8 +48,8 @@ jobs:
       - uses: actions/checkout@v5
       - run: |
           docker buildx build --build-arg RELEASE=$RELEASE \
-            -t ghcr.io/khorwood/${{ matrix.image }}:${echo $RELEASE | cut -d "-" -f 1}-${{ github.run_number }} \
-            -t ghcr.io/khorwood/${{ matrix.image }}:${echo $RELEASE | cut -d "-" -f 1} \
+            -t ghcr.io/khorwood/${{ matrix.image }}:$(echo $RELEASE | cut -d "-" -f 1)-${{ github.run_number }} \
+            -t ghcr.io/khorwood/${{ matrix.image }}:$(echo $RELEASE | cut -d "-" -f 1) \
             -t ghcr.io/khorwood/${{ matrix.image }}:latest \
             .
         env:
