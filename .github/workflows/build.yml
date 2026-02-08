@@ -37,7 +37,7 @@ jobs:
           - image: irssi
             release: 1.4.5-r6
           - image: prometheus
-            release: 3.5.0-r4
+            release: 3.5.0-r5
           - image: radarr
             release: 6.0.4.10291
           - image: sabnzbd
@@ -47,9 +47,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - run: |
-          docker buildx build --build-arg RELEASE=${{ env.RELEASE }} \
-            -t ghcr.io/khorwood/${{ matrix.image }}:${{ env.RELEASE }}-${{ github.run_number }} \
-            -t ghcr.io/khorwood/${{ matrix.image }}:${{ env.RELEASE }} \
+          docker buildx build --build-arg RELEASE=$RELEASE \
+            -t ghcr.io/khorwood/${{ matrix.image }}:${(${RELEASE//-/ })[0]}-${{ github.run_number }} \
+            -t ghcr.io/khorwood/${{ matrix.image }}:${(${RELEASE//-/ })[0]} \
             -t ghcr.io/khorwood/${{ matrix.image }}:latest \
             .
         env:
