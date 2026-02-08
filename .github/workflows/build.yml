@@ -22,8 +22,8 @@ jobs:
             if [["$GITHUB_REF" == 'refs/heads/main']]; then
               echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
               docker push -a ghcr.io/khorwood/alpine
-            end
-          end
+            fi
+          fi
         env:
           VERSION: 3.23
           RELEASE: 3.23.3
