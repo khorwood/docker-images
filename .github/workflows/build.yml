@@ -43,7 +43,7 @@ jobs:
           - image: sabnzbd
             release: 4.5.5
           - image: sonarr
-            release: 4.0.16.2944
+            release: 4.0.17.2952
     steps:
       - uses: actions/checkout@v5
       - run: |
