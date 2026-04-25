@@ -1,6 +1,6 @@
 FROM ghcr.io/linuxserver/unrar:amd64-latest@sha256:87ad3d684b4eb0db3529790b79dbf843f656fecd3ffae4c03d7e25b674132eee AS unrar
 
-FROM ghcr.io/khorwood/alpine:3.23.3
+FROM ghcr.io/khorwood/alpine:3.23.4
 
 ARG RELEASE=4.5.3
 
