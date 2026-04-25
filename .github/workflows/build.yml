@@ -19,7 +19,7 @@ jobs:
             docker buildx build \
               -t ghcr.io/khorwood/alpine:$VERSION \
               -t ghcr.io/khorwood/alpine:$RELEASE .
-            if [["$GITHUB_REF" == 'refs/heads/main']]; then
+            if [["$GITHUB_REF" == "refs/heads/main"]]; then
               echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
               docker push -a ghcr.io/khorwood/alpine
             fi
