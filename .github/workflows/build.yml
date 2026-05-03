@@ -37,11 +37,11 @@ jobs:
           - image: irssi
             release: 1.4.5-r6
           - image: prometheus
-            release: 3.5.0-r7
+            release: 3.5.3-r0
           - image: radarr
             release: 6.1.1.10360
           - image: sabnzbd
-            release: 4.5.5
+            release: 5.0.1
           - image: sonarr
             release: 4.0.17.2952
     steps:
